@@ -1,4 +1,4 @@
-package ServerTests;
+package UnitTests.ServerTests;
 
 import Server.ClientHandler;
 import org.junit.jupiter.api.Test;

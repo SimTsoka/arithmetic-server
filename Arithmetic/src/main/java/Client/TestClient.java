@@ -38,6 +38,14 @@ public class TestClient {
         }
     }
 
+    public JSONObject receiveResponse() {
+        try {
+            return new JSONObject(in.readLine());
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading server response");
+        }
+    }
+
     public JSONObject sendRequest(JSONObject request) {
         try {
             out.println(request);

@@ -9,9 +9,10 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable{
-    Socket socket;
-    PrintStream out;
-    BufferedReader in;
+    private final Socket socket;
+    private final PrintStream out;
+    private final BufferedReader in;
+    private JSONObject messageFromClient;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
@@ -21,7 +22,7 @@ public class ClientHandler implements Runnable{
 
     @Override
     public void run() {
-
+        out.println(intro());
     }
 
     public static JSONObject intro() {

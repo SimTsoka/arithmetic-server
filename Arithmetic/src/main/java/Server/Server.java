@@ -22,6 +22,9 @@ public class Server implements Runnable{
             try {
                 client = serverSocket.accept();
                 System.out.println("Client connected: " + client.isConnected());
+
+                Thread thread = new Thread(new ClientHandler(client));
+                thread.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
