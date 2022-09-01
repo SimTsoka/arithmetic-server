@@ -1,5 +1,7 @@
 package Server;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,5 +22,13 @@ public class ClientHandler implements Runnable{
     @Override
     public void run() {
 
+    }
+
+    public static JSONObject intro() {
+        JSONObject response = new JSONObject();
+        String message = "Welcome to Arithmetics!!!\n" +
+                "To get started, please enter \"start\" followed by your name.\n";
+        response.put("message", message);
+        return response;
     }
 }

@@ -1,7 +1,7 @@
 package Client;
 
-import netscape.javascript.JSObject;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,7 +38,13 @@ public class TestClient {
         }
     }
 
-    public JSObject sendRequest(String request) {
-        return null;
+    public JSONObject sendRequest(JSONObject request) {
+        try {
+            out.println(request);
+            out.flush();
+            return new JSONObject(in.readLine());
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading server response");
+        }
     }
 }
