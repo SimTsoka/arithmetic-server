@@ -29,7 +29,5 @@ public class TestNewPlayer {
         assertFalse(newPlayer.isNameAlphaNum("$imon"));
         assertFalse(newPlayer.isNameAlphaNum("G@t"));
         assertFalse(newPlayer.isNameAlphaNum("le-o"));
-
-
     }
 }
