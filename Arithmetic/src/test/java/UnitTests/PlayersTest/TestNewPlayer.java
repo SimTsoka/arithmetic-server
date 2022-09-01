@@ -3,18 +3,20 @@ package UnitTests.PlayersTest;
 import Players.NewPlayer;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestNewPlayer {
     @Test
     void testNewPlayerIsAccepted() {
         NewPlayer newPlayer = new NewPlayer();
-        assertTrue(newPlayer.isAccepted("Start", "Simon"));
-        assertFalse(newPlayer.isAccepted("starrt", "Simon"));
-        assertFalse(newPlayer.isAccepted("start", "Simon 123"));
-        assertFalse(newPlayer.isAccepted("start", "Simon,"));
-        assertFalse(newPlayer.isAccepted("start", "123"));
+        assertTrue(newPlayer.isAccepted("Start", new ArrayList<>(List.of("Simon".split(" ")))));
+        assertFalse(newPlayer.isAccepted("starrt", new ArrayList<>(List.of("Simon".split(" ")))));
+        assertFalse(newPlayer.isAccepted("start", new ArrayList<>(List.of("Simon 123".split(" ")))));
+        assertFalse(newPlayer.isAccepted("start", new ArrayList<>(List.of("Simon,".split(" ")))));
+        assertFalse(newPlayer.isAccepted("start", new ArrayList<>(List.of("123".split(" ")))));
     }
 
     @Test

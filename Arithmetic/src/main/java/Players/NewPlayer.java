@@ -1,10 +1,13 @@
 package Players;
 
-public class NewPlayer {
+import java.util.ArrayList;
 
-    public boolean isAccepted(String command, String arg) {
-        if (command.equalsIgnoreCase("start") && arg.split(" ").length == 1) {
-            return isNameAlphaNum(arg);
+public class NewPlayer {
+    private Player player;
+
+    public boolean isAccepted(String command, ArrayList<String> arg) {
+        if (command.equalsIgnoreCase("start") && arg.size() == 1) {
+            return isNameAlphaNum(arg.get(0));
         }
 
         return false;
