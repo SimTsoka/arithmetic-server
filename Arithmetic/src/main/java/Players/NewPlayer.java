@@ -1,13 +1,15 @@
 package Players;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 public class NewPlayer {
     private Player player;
 
-    public boolean isAccepted(String command, ArrayList<String> arg) {
-        if (command.equalsIgnoreCase("start") && arg.size() == 1) {
-            return isNameAlphaNum(arg.get(0));
+    public boolean isAccepted(String command, JSONArray arg) {
+        if (command.equalsIgnoreCase("start") && arg.length() == 1) {
+            return isNameAlphaNum(arg.getString(0));
         }
 
         return false;

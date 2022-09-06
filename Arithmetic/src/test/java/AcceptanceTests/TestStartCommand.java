@@ -33,7 +33,7 @@ public class TestStartCommand {
         ));
         JSONObject response = testClient.sendRequest(request);
         assertEquals("OK", response.get("result"));
-        assertEquals("You have successfully launched into the program", response.get("message"));
+        assertEquals("You have successfully launched into the program.\n", response.get("message"));
         assertEquals("Simon", response.get("name"));
     }
 }

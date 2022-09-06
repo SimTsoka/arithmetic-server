@@ -1,6 +1,7 @@
 package UnitTests.PlayersTest;
 
 import Players.NewPlayer;
+import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,11 +13,11 @@ public class TestNewPlayer {
     @Test
     void testNewPlayerIsAccepted() {
         NewPlayer newPlayer = new NewPlayer();
-        assertTrue(newPlayer.isAccepted("Start", new ArrayList<>(List.of("Simon".split(" ")))));
-        assertFalse(newPlayer.isAccepted("starrt", new ArrayList<>(List.of("Simon".split(" ")))));
-        assertFalse(newPlayer.isAccepted("start", new ArrayList<>(List.of("Simon 123".split(" ")))));
-        assertFalse(newPlayer.isAccepted("start", new ArrayList<>(List.of("Simon,".split(" ")))));
-        assertFalse(newPlayer.isAccepted("start", new ArrayList<>(List.of("123".split(" ")))));
+        assertTrue(newPlayer.isAccepted("Start", new JSONArray(List.of("Simon".split(" ")))));
+        assertFalse(newPlayer.isAccepted("starrt", new JSONArray(List.of("Simon".split(" ")))));
+        assertFalse(newPlayer.isAccepted("start", new JSONArray(List.of("Simon 123".split(" ")))));
+        assertFalse(newPlayer.isAccepted("start", new JSONArray(List.of("Simon,".split(" ")))));
+        assertFalse(newPlayer.isAccepted("start", new JSONArray(List.of("123".split(" ")))));
     }
 
     @Test

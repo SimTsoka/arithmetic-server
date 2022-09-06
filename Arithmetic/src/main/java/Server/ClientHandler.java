@@ -1,6 +1,7 @@
 package Server;
 
 import Players.NewPlayer;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -42,17 +43,23 @@ public class ClientHandler implements Runnable{
     public static JSONObject intro() {
         JSONObject response = new JSONObject();
         String message = "Welcome to Arithmetics!!!\n" +
-                "To get started, please enter \"start\" followed by your name.\n";
+                "To get started, please enter \"start\" followed by your username.\n";
         response.put("message", message);
         return response;
     }
 
-    public JSONObject checkStartRequirements(JSONObject msg) {
+    public static JSONObject checkStartRequirements(JSONObject msg) {
         NewPlayer newPlayer =  new NewPlayer();
-        //convert JSONArray to Arraylist
-        if (newPlayer.isAccepted(msg.getString("command"), new ArrayList<String>())) {
+        JSONObject response = new JSONObject();
 
+        if (newPlayer.isAccepted(msg.getString("command"), msg.getJSONArray("arg"))) {
+            response.put("result", "OK");
+            response.put("message", "You have successfully launched into the program.\n");
+            response.put("name", msg.getJSONArray("arg").get(0));
+        } else {
+            response.put("result", "ERROR");
+            response.put("message", "Please enter \"start\" followed by your username.\n");
         }
-        return null;
+        return response;
     }
 }
