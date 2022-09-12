@@ -26,7 +26,7 @@ public class TestIntro {
     @Test
     void testIntroMsg() {
         String introMsg = "Welcome to Arithmetics!!!\n" +
-                "To get started, please enter \"start\" followed by your name.\n";
+                "To get started, please enter \"start\" followed by your username.\n";
 
         JSONObject response = testClient.receiveResponse();
         assertEquals(introMsg, response.getString("message"));

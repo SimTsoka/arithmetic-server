@@ -2,12 +2,13 @@ package UnitTests.ServerTests;
 
 import Server.ClientHandler;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientHandlerTests {
     @Test
@@ -31,5 +32,24 @@ public class ClientHandlerTests {
         assertEquals("Simon", ClientHandler.checkStartRequirements(request).getString("name"));
     }
 
-    //Test unsuccessful launch and make sure an actual robot is created
+    @Test
+    void testCheckStartRequirementsFailed() {
+        JSONObject request = new JSONObject();
+        JSONArray args = new JSONArray(List.of("$imon"));
+        request.put("command", "start");
+        request.put("arg", args);
+        boolean nameExists = true;
+
+        JSONObject actual = ClientHandler.checkStartRequirements(request);
+        assertEquals("ERROR", actual.getString("result"));
+        assertEquals("Please enter \"start\" followed by your username.\n", actual.getString("message"));
+
+        try {
+            actual.getString("name");
+        } catch (JSONException e) {
+            nameExists = false;
+        }
+
+        assertFalse(nameExists);
+    }
 }

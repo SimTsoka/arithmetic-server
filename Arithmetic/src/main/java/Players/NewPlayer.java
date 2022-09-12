@@ -8,8 +8,10 @@ public class NewPlayer {
     private Player player;
 
     public boolean isAccepted(String command, JSONArray arg) {
-        if (command.equalsIgnoreCase("start") && arg.length() == 1) {
-            return isNameAlphaNum(arg.getString(0));
+        if (command.equalsIgnoreCase("start") && arg.length() == 1 &&
+                isNameAlphaNum(arg.getString(0))) {
+            createPlayer(arg.getString(0));
+            return true;
         }
 
         return false;
@@ -33,5 +35,13 @@ public class NewPlayer {
         }
 
         return countAlpha > 0;
+    }
+
+    public void createPlayer(String name) {
+        player = new Player(name);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

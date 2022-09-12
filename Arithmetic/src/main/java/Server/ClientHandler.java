@@ -1,7 +1,6 @@
 package Server;
 
 import Players.NewPlayer;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -9,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClientHandler implements Runnable{
     private final Socket socket;
@@ -33,6 +30,9 @@ public class ClientHandler implements Runnable{
             while ((messageFromClient = in.readLine()) != null) {
                 JSONObject msg = new JSONObject(messageFromClient);
 
+                if (!isCreated) {
+
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException();
