@@ -1,4 +1,4 @@
-package Server;
+  package Server;
 
 import Players.NewPlayer;
 import org.json.JSONObject;
@@ -29,6 +29,7 @@ public class ClientHandler implements Runnable{
         try {
             while ((messageFromClient = in.readLine()) != null) {
                 JSONObject msg = new JSONObject(messageFromClient);
+                //now add player to list of players and return successful message to client
 
                 if (!isCreated) {
 
