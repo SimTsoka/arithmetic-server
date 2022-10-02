@@ -4,6 +4,7 @@ import Server.ClientHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,6 +12,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientHandlerTests {
+    @BeforeEach
+    void setUp() {
+        ClientHandler.reset();
+    }
+
     @Test
     void testIntro() {
         String expected = "Welcome to Arithmetics!!!\n" +
@@ -26,7 +32,7 @@ public class ClientHandlerTests {
         request.put("command", "start");
         request.put("arg", args);
 
-        assertEquals("OK", ClientHandler.checkStartRequirements(request).getString("result"));
+        assertEquals("OK", ClientHandler.checkStartRequirements(request).getString("status"));
         assertEquals("You have successfully launched into the program.\n",
                 ClientHandler.checkStartRequirements(request).getString("message"));
         assertEquals("Simon", ClientHandler.checkStartRequirements(request).getString("name"));
@@ -41,7 +47,7 @@ public class ClientHandlerTests {
         boolean nameExists = true;
 
         JSONObject actual = ClientHandler.checkStartRequirements(request);
-        assertEquals("ERROR", actual.getString("result"));
+        assertEquals("ERROR", actual.getString("status"));
         assertEquals("Please enter \"start\" followed by your username.\n", actual.getString("message"));
 
         try {

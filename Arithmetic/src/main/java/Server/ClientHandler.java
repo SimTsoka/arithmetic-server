@@ -15,6 +15,7 @@ public class ClientHandler implements Runnable{
     private final BufferedReader in;
     private String messageFromClient;
     private boolean isCreated = false;
+    private static String name;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
@@ -32,7 +33,7 @@ public class ClientHandler implements Runnable{
                 //now add player to list of players and return successful message to client
 
                 if (!isCreated) {
-
+//                    isCreated = new NewPlayer().isAccepted();
                 }
             }
         } catch (IOException e) {
@@ -51,16 +52,25 @@ public class ClientHandler implements Runnable{
 
     public static JSONObject checkStartRequirements(JSONObject msg) {
         NewPlayer newPlayer =  new NewPlayer();
-        JSONObject response = new JSONObject();
 
         if (newPlayer.isAccepted(msg.getString("command"), msg.getJSONArray("arg"))) {
-            response.put("result", "OK");
-            response.put("message", "You have successfully launched into the program.\n");
-            response.put("name", msg.getJSONArray("arg").get(0));
+            setName(msg.getJSONArray("arg").get(0).toString());
+            return new JSONParser().successfulMessage("You have successfully launched into the program.\n",
+                    getName());
         } else {
-            response.put("result", "ERROR");
-            response.put("message", "Please enter \"start\" followed by your username.\n");
+            return new JSONParser().errorMessage("Please enter \"start\" followed by your username.\n");
         }
-        return response;
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static void setName(String newName) {
+        name = newName;
+    }
+
+    public static void reset() {
+        name = null;
     }
 }

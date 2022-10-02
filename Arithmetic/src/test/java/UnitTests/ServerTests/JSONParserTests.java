@@ -39,4 +39,16 @@ public class JSONParserTests {
 
         assertFalse(nameExists);
     }
+
+    @Test
+    void testSuccessfulMessage() {
+        JSONParser parser = new JSONParser();
+        JSONObject actual = parser.successfulMessage("Successful Message", "Simon");
+
+        assertEquals("OK", actual.getString("status"));
+        assertEquals("Successful Message", actual.getString("message"));
+        assertEquals("", actual.getString("sumType"));
+        assertEquals("", actual.getString("sumValue"));
+        assertEquals("Simon", actual.getString("name"));
+    }
 }
