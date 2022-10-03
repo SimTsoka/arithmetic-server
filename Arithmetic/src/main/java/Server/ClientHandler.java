@@ -16,8 +16,6 @@ public class ClientHandler implements Runnable{
     private final BufferedReader in;
     private String messageFromClient;
     private boolean isCreated = false;
-    private static String name;
-
     private static Player player;
 
     public ClientHandler(Socket socket) throws IOException {
@@ -57,9 +55,9 @@ public class ClientHandler implements Runnable{
         NewPlayer newPlayer =  new NewPlayer();
 
         if (newPlayer.isAccepted(msg.getString("command"), msg.getJSONArray("arg"))) {
-            setName(msg.getJSONArray("arg").get(0).toString());
+            setPlayer(newPlayer.getPlayer());
             return new JSONParser().successfulMessage("You have successfully launched into the program.\n",
-                    getName());
+                    player.getName());
         } else {
             return new JSONParser().errorMessage("Please enter \"start\" followed by your username.\n");
         }
@@ -71,13 +69,6 @@ public class ClientHandler implements Runnable{
 
     public static void setPlayer(Player newPlayer) {
         player = newPlayer;
-    }
-    public static String getName() {
-        return name;
-    }
-
-    public static void setName(String newName) {
-        name = newName;
     }
 
     public static void reset() {
