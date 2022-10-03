@@ -1,9 +1,13 @@
 package UnitTests.PlayersTest;
 
 import Players.NewPlayer;
+import Players.Player;
 import Players.PlayerDatabase;
 import org.json.JSONArray;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +53,11 @@ public class TestNewPlayer {
         NewPlayer newPlayer = new NewPlayer();
         assertTrue(newPlayer.isAccepted("start", new JSONArray(List.of("Simon".split(" ")))));
         assertEquals("Simon", newPlayer.getPlayer().getName());
-//        assertTrue();
+
+        HashMap<String, Player> expected = new HashMap<>(Map.of(
+           "Simon", new Player("Simon")
+        ));
+        assertTrue(TestPlayerDatabase.checkPlayers(expected, PlayerDatabase.getPlayers()));
     }
 
     @Test
@@ -57,6 +65,8 @@ public class TestNewPlayer {
         NewPlayer newPlayer = new NewPlayer();
         assertFalse(newPlayer.isAccepted("startt", new JSONArray(List.of("Simon".split(" ")))));
         assertNull(newPlayer.getPlayer());
+
+        assertEquals(0,PlayerDatabase.getPlayers().size());
     }
 
     @Test
@@ -64,6 +74,8 @@ public class TestNewPlayer {
         NewPlayer newPlayer = new NewPlayer();
         assertFalse(newPlayer.isAccepted("start", new JSONArray(List.of("123".split(" ")))));
         assertNull(newPlayer.getPlayer());
+
+        assertEquals(0,PlayerDatabase.getPlayers().size());
     }
 
     @Test

@@ -1,5 +1,6 @@
 package UnitTests.ServerTests;
 
+import Players.PlayerDatabase;
 import Server.ClientHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +16,7 @@ public class ClientHandlerTests {
     @BeforeEach
     void setUp() {
         ClientHandler.reset();
+        PlayerDatabase.reset();
     }
 
     @Test

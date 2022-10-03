@@ -5,9 +5,7 @@ import Players.PlayerDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -76,7 +74,7 @@ public class TestPlayerDatabase {
         assertNull(PlayerDatabase.searchPlayer("Test"));
     }
 
-    boolean checkPlayers(HashMap<String, Player> expected, HashMap<String, Player> actual) {
+    public static boolean checkPlayers(HashMap<String, Player> expected, HashMap<String, Player> actual) {
         for (String key:expected.keySet()) {
             if (!expected.get(key).getName().equals(actual.get(key).getName())) {
                 return false;

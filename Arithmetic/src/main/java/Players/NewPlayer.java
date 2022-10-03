@@ -11,6 +11,7 @@ public class NewPlayer {
         if (command.equalsIgnoreCase("start") && arg.length() == 1 &&
                 isNameAlphaNum(arg.getString(0))) {
             createPlayer(arg.getString(0));
+            PlayerDatabase.addNewPlayer(getPlayer());
             return true;
         }
 
