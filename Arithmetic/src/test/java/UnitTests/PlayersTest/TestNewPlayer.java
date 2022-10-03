@@ -1,7 +1,7 @@
 package UnitTests.PlayersTest;
 
 import Players.NewPlayer;
-import Players.PlayerList;
+import Players.PlayerDatabase;
 import org.json.JSONArray;
 import java.util.List;
 
@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestNewPlayer {
     @BeforeEach
     void setUp() {
-        PlayerList.reset();
+        PlayerDatabase.reset();
     }
 
     @AfterEach
     void tearDown() {
-        PlayerList.reset();
+        PlayerDatabase.reset();
     }
     @Test
     void testIsAlphaNum() {
