@@ -6,6 +6,10 @@ public class Player {
         this.name = name;
     }
 
+    /**
+     * Getter for player name.
+     * @return name of player.
+     */
     public String getName() {
         return name;
     }
