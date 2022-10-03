@@ -1,13 +1,25 @@
 package UnitTests.PlayersTest;
 
 import Players.NewPlayer;
+import Players.PlayerList;
 import org.json.JSONArray;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestNewPlayer {
+    @BeforeEach
+    void setUp() {
+        PlayerList.reset();
+    }
+
+    @AfterEach
+    void tearDown() {
+        PlayerList.reset();
+    }
     @Test
     void testIsAlphaNum() {
         NewPlayer newPlayer = new NewPlayer();
@@ -37,6 +49,7 @@ public class TestNewPlayer {
         NewPlayer newPlayer = new NewPlayer();
         assertTrue(newPlayer.isAccepted("start", new JSONArray(List.of("Simon".split(" ")))));
         assertEquals("Simon", newPlayer.getPlayer().getName());
+//        assertTrue();
     }
 
     @Test

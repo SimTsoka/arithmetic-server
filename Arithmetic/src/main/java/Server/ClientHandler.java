@@ -1,6 +1,7 @@
   package Server;
 
 import Players.NewPlayer;
+import Players.Player;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -16,6 +17,8 @@ public class ClientHandler implements Runnable{
     private String messageFromClient;
     private boolean isCreated = false;
     private static String name;
+
+    private static Player player;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
@@ -62,6 +65,13 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    public static Player getPlayer() {
+        return player;
+    }
+
+    public static void setPlayer(Player newPlayer) {
+        player = newPlayer;
+    }
     public static String getName() {
         return name;
     }
@@ -71,6 +81,6 @@ public class ClientHandler implements Runnable{
     }
 
     public static void reset() {
-        name = null;
+        player = null;
     }
 }

@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestPlayerList {
 
@@ -57,4 +56,29 @@ public class TestPlayerList {
 
         return true;
     }
+    @Test
+    void searchPlayerSuccessful() {
+        Player simon = new Player("Simon");
+        Player apple = new Player("Apple");
+
+        PlayerList.addNewPlayer(simon);
+        PlayerList.addNewPlayer(apple);
+
+        assertEquals(simon, PlayerList.searchPlayer("Simon"));
+        assertEquals(apple, PlayerList.searchPlayer("Apple"));
+    }
+
+    @Test
+    void searchPlayerUnsuccessful() {
+        Player simon = new Player("Simon");
+        Player apple = new Player("Apple");
+
+        PlayerList.addNewPlayer(simon);
+        PlayerList.addNewPlayer(apple);
+
+        assertNull(PlayerList.searchPlayer("Test"));
+    }
+
+    //Search players works, now I need to call search players after successful creation of robot
+    //in new player.
 }

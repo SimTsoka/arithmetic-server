@@ -20,4 +20,14 @@ public class PlayerList {
     public static void removePlayer(Player player) {
         players.remove(player);
     }
+
+    public static Player searchPlayer(String name) {
+        for (Player player:players) {
+            if (player.getName().equals(name)) {
+                return player;
+            }
+        }
+
+        return null;
+    }
 }

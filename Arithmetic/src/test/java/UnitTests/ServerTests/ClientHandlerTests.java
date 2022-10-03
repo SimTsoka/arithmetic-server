@@ -36,6 +36,8 @@ public class ClientHandlerTests {
         assertEquals("You have successfully launched into the program.\n",
                 ClientHandler.checkStartRequirements(request).getString("message"));
         assertEquals("Simon", ClientHandler.checkStartRequirements(request).getString("name"));
+
+        assertEquals("Simon", ClientHandler.getPlayer().getName());
     }
 
     @Test
