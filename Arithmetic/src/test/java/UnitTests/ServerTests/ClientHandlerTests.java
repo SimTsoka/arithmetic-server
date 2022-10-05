@@ -40,6 +40,7 @@ public class ClientHandlerTests {
         assertEquals("Simon", ClientHandler.checkStartRequirements(request).getString("name"));
 
         assertEquals("Simon", ClientHandler.getPlayer().getName());
+        assertTrue(ClientHandler.isPlayerCreated());
     }
 
     @Test
@@ -62,5 +63,6 @@ public class ClientHandlerTests {
 
         assertFalse(nameExists);
         assertNull(ClientHandler.getPlayer());
+        assertFalse(ClientHandler.isPlayerCreated());
     }
 }

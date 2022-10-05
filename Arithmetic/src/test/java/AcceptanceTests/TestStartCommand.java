@@ -1,11 +1,13 @@
 package AcceptanceTests;
 
 import Client.TestClient;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,10 +31,16 @@ public class TestStartCommand {
     void testStartSuccessful() {
         JSONObject request = new JSONObject(Map.of(
                 "command", "start",
-                "arg", "[\"Simon\"]"
+                "arg", new JSONArray(List.of("Simon"))
         ));
+        String introMsg = "Welcome to Arithmetics!!!\n" +
+                "To get started, please enter \"start\" followed by your username.\n";
+
+        JSONObject introResponse = testClient.receiveResponse();
+        assertEquals(introMsg, introResponse.getString("message"));
+
         JSONObject response = testClient.sendRequest(request);
-        assertEquals("OK", response.get("result"));
+        assertEquals("OK", response.get("status"));
         assertEquals("You have successfully launched into the program.\n", response.get("message"));
         assertEquals("Simon", response.get("name"));
     }

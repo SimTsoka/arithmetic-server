@@ -15,7 +15,7 @@ public class ClientHandler implements Runnable{
     private final PrintStream out;
     private final BufferedReader in;
     private String messageFromClient;
-    private boolean isCreated = false;
+    private static boolean isCreated = false;
     private static Player player;
 
     public ClientHandler(Socket socket) throws IOException {
@@ -26,16 +26,20 @@ public class ClientHandler implements Runnable{
 
     @Override
     public void run() {
+        JSONObject response = new JSONObject();
+
         out.println(intro());
 
         try {
             while ((messageFromClient = in.readLine()) != null) {
                 JSONObject msg = new JSONObject(messageFromClient);
-                //now add player to list of players and return successful message to client
 
                 if (!isCreated) {
-//                    isCreated = new NewPlayer().isAccepted();
+                    response = checkStartRequirements(msg);
                 }
+
+                out.println(response);
+                out.flush();
             }
         } catch (IOException e) {
             throw new RuntimeException();
@@ -69,9 +73,15 @@ public class ClientHandler implements Runnable{
 
     public static void setPlayer(Player newPlayer) {
         player = newPlayer;
+        isCreated = true;
+    }
+
+    public static boolean isPlayerCreated() {
+        return isCreated;
     }
 
     public static void reset() {
         player = null;
+        isCreated = false;
     }
 }
