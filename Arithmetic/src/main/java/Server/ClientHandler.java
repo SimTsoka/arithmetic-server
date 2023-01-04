@@ -1,6 +1,6 @@
   package Server;
 
-import Players.NewPlayer;
+import Players.PlayerCreator;
 import Players.Player;
 import org.json.JSONObject;
 
@@ -36,6 +36,7 @@ public class ClientHandler implements Runnable{
 
                 if (!isCreated) {
                     response = checkStartRequirements(msg);
+                    printToConsole(response);
                 }
 
                 out.println(response);
@@ -56,10 +57,10 @@ public class ClientHandler implements Runnable{
     }
 
     public static JSONObject checkStartRequirements(JSONObject msg) {
-        NewPlayer newPlayer =  new NewPlayer();
+        PlayerCreator playerCreator =  new PlayerCreator();
 
-        if (newPlayer.isAccepted(msg.getString("command"), msg.getJSONArray("arg"))) {
-            setPlayer(newPlayer.getPlayer());
+        if (playerCreator.isAccepted(msg.getString("command"), msg.getJSONArray("arg"))) {
+            setPlayer(playerCreator.getPlayer());
             return new JSONParser().successfulMessage("You have successfully launched into the program.\n",
                     player.getName());
         } else {
@@ -83,5 +84,9 @@ public class ClientHandler implements Runnable{
     public static void reset() {
         player = null;
         isCreated = false;
+    }
+
+    public static void printToConsole(JSONObject response) {
+        System.out.printf("%1s: %2s%n", response.get("name"), response.get("message"));
     }
 }

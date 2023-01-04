@@ -2,7 +2,7 @@ package Players;
 
 import org.json.JSONArray;
 
-public class NewPlayer {
+public class PlayerCreator {
     private Player player;
 
     /**
