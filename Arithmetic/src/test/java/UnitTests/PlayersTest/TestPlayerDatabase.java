@@ -81,6 +81,11 @@ public class TestPlayerDatabase {
         assertNull(PlayerDatabase.searchPlayer("Test"));
     }
 
+    @Test
+    void searchPlayerWhenDataIsEmpty() {
+        assertNull(PlayerDatabase.searchPlayer("Simon"));
+    }
+
     public static boolean checkPlayers(HashMap<String, Player> expected, HashMap<String, Player> actual) {
         for (String key:expected.keySet()) {
             if (!expected.get(key).getName().equals(actual.get(key).getName())) {
