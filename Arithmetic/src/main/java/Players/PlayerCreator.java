@@ -14,7 +14,8 @@ public class PlayerCreator {
      */
     public boolean isAccepted(String command, JSONArray arg) {
         if (command.equalsIgnoreCase("start") && arg.length() == 1 &&
-                isNameAlphaNum(arg.getString(0))) {
+                isNameAlphaNum(arg.getString(0)) &&
+                !isPlayerInDatabase(arg.getString(0))) {
             createPlayer(arg.getString(0));
             PlayerDatabase.addNewPlayer(getPlayer());
             return true;

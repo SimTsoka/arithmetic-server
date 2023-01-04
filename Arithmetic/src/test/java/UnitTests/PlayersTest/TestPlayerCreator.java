@@ -48,6 +48,7 @@ public class TestPlayerCreator {
         assertFalse(playerCreator.isAccepted("start", new JSONArray(List.of("Simon 123".split(" ")))));
         assertFalse(playerCreator.isAccepted("start", new JSONArray(List.of("Simon,".split(" ")))));
         assertFalse(playerCreator.isAccepted("start", new JSONArray(List.of("123".split(" ")))));
+        assertFalse(playerCreator.isAccepted("start", new JSONArray()));
     }
 
     @Test
