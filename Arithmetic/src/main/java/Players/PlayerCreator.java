@@ -58,4 +58,8 @@ public class PlayerCreator {
     public Player getPlayer() {
         return player;
     }
+
+    public boolean isPlayerInDatabase(String name) {
+        return PlayerDatabase.searchPlayer(name) != null;
+    }
 }

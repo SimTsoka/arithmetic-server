@@ -15,18 +15,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestPlayerCreator {
+    private PlayerCreator playerCreator;
+
     @BeforeEach
     void setUp() {
         PlayerDatabase.reset();
+        playerCreator = new PlayerCreator();
     }
 
     @AfterEach
     void tearDown() {
         PlayerDatabase.reset();
+        playerCreator = null;
     }
     @Test
     void testIsAlphaNum() {
-        PlayerCreator playerCreator = new PlayerCreator();
         assertTrue(playerCreator.isNameAlphaNum("simon"));
         assertTrue(playerCreator.isNameAlphaNum("sim2"));
         assertTrue(playerCreator.isNameAlphaNum("123q"));
@@ -40,7 +43,6 @@ public class TestPlayerCreator {
 
     @Test
     void testNewPlayerIsAccepted() {
-        PlayerCreator playerCreator = new PlayerCreator();
         assertTrue(playerCreator.isAccepted("Start", new JSONArray(List.of("Simon".split(" ")))));
         assertFalse(playerCreator.isAccepted("starrt", new JSONArray(List.of("Simon".split(" ")))));
         assertFalse(playerCreator.isAccepted("start", new JSONArray(List.of("Simon 123".split(" ")))));
@@ -50,7 +52,6 @@ public class TestPlayerCreator {
 
     @Test
     void checkPlayerCreated() {
-        PlayerCreator playerCreator = new PlayerCreator();
         assertTrue(playerCreator.isAccepted("start", new JSONArray(List.of("Simon".split(" ")))));
         assertEquals("Simon", playerCreator.getPlayer().getName());
 
@@ -62,7 +63,6 @@ public class TestPlayerCreator {
 
     @Test
     void checkPlayerNotCreatedWrongCommand() {
-        PlayerCreator playerCreator = new PlayerCreator();
         assertFalse(playerCreator.isAccepted("startt", new JSONArray(List.of("Simon".split(" ")))));
         assertNull(playerCreator.getPlayer());
 
@@ -71,7 +71,6 @@ public class TestPlayerCreator {
 
     @Test
     void checkPlayerNotCreatedIncorrectNameFormat() {
-        PlayerCreator playerCreator = new PlayerCreator();
         assertFalse(playerCreator.isAccepted("start", new JSONArray(List.of("123".split(" ")))));
         assertNull(playerCreator.getPlayer());
 
@@ -80,8 +79,28 @@ public class TestPlayerCreator {
 
     @Test
     void testCreatePlayer() {
-        PlayerCreator playerCreator = new PlayerCreator();
         playerCreator.createPlayer("Simon");
         assertEquals("Simon", playerCreator.getPlayer().getName());
+    }
+
+    @Test
+    void testIsPlayerInDatabase() {
+        assertTrue(playerCreator.isAccepted("start", new JSONArray(List.of("Simon".split(" ")))));
+        assertTrue(playerCreator.isPlayerInDatabase("Simon"));
+        assertFalse(playerCreator.isPlayerInDatabase("Jane"));
+    }
+
+    @Test
+    void checkIfPlayerAlreadyExists() {
+        assertTrue(playerCreator.isAccepted("start", new JSONArray(List.of("Simon".split(" ")))));
+        assertEquals("Simon", playerCreator.getPlayer().getName());
+
+        HashMap<String, Player> expected = new HashMap<>(Map.of(
+                "Simon", new Player("Simon")
+        ));
+        assertTrue(TestPlayerDatabase.checkPlayers(expected, PlayerDatabase.getPlayers()));
+
+        assertFalse(playerCreator.isAccepted("start", new JSONArray(List.of("Simon".split(" ")))));
+        assertTrue(TestPlayerDatabase.checkPlayers(expected, PlayerDatabase.getPlayers()));
     }
 }
