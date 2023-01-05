@@ -5,6 +5,7 @@ import Server.ClientHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,12 @@ public class ClientHandlerTests {
         PlayerDatabase.reset();
     }
 
+    @AfterEach
+    void tearDown() {
+        ClientHandler.reset();
+        PlayerDatabase.reset();
+    }
+
     @Test
     void testIntro() {
         String expected = "Welcome to Arithmetics!!!\n" +
@@ -27,17 +34,21 @@ public class ClientHandlerTests {
         assertEquals(expected, ClientHandler.intro().getString("message"));
     }
 
+    // Check this
     @Test
     void testCheckStartRequirements() {
         JSONObject request = new JSONObject();
+        JSONObject response;
         JSONArray args = new JSONArray(List.of("Simon"));
         request.put("command", "start");
         request.put("arg", args);
 
-        assertEquals("OK", ClientHandler.checkStartRequirements(request).getString("status"));
+        response = ClientHandler.checkStartRequirements(request);
+
+        assertEquals("OK", response.getString("status"));
         assertEquals("You have successfully launched into the program.\n",
-                ClientHandler.checkStartRequirements(request).getString("message"));
-        assertEquals("Simon", ClientHandler.checkStartRequirements(request).getString("name"));
+                response.getString("message"));
+        assertEquals("Simon", response.getString("name"));
 
         assertEquals("Simon", ClientHandler.getPlayer().getName());
         assertTrue(ClientHandler.isPlayerCreated());

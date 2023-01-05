@@ -2,6 +2,7 @@
 
 import Players.PlayerCreator;
 import Players.Player;
+import Players.PlayerDatabase;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -12,16 +13,15 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable{
     private final Socket socket;
-    private final PrintStream out;
-    private final BufferedReader in;
+    private PrintStream out;
+    private BufferedReader in;
     private String messageFromClient;
     private static boolean isCreated = false;
     private static Player player;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
-        out = new PrintStream(socket.getOutputStream());
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        initialiseStreams();
     }
 
     @Override
@@ -44,8 +44,9 @@ public class ClientHandler implements Runnable{
             }
         } catch (IOException e) {
             throw new RuntimeException();
+        } finally {
+            shutdown();
         }
-
     }
 
     public static JSONObject intro() {
@@ -88,5 +89,22 @@ public class ClientHandler implements Runnable{
 
     public static void printToConsole(JSONObject response) {
         System.out.printf("%1s: %2s%n", response.get("name"), response.get("message"));
+    }
+
+    public void initialiseStreams() throws IOException {
+        out = new PrintStream(socket.getOutputStream());
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    }
+
+    public void shutdown() {
+        try {
+            PlayerDatabase.removePlayer(player);
+            out.close();
+            in.close();
+            socket.close();
+            reset();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
 }
