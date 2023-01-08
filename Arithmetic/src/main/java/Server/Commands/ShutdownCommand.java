@@ -10,4 +10,10 @@ public class ShutdownCommand extends ServerCommand {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean execute() {
+        System.out.println("Shutting Down..");
+        return false;
+    }
 }
