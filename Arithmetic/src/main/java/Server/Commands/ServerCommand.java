@@ -12,11 +12,11 @@ public abstract class ServerCommand {
     public abstract boolean execute();
 
     public static ServerCommand createCommand(String input) {
-        switch (input.toLowerCase()) {
-            case "shutdown":
-                return new ShutdownCommand();
-        }
-        return null;
+        return switch (input.toLowerCase()) {
+            case "shutdown" -> new ShutdownCommand();
+            case "players" -> new PlayersCommand();
+            default -> null;
+        };
     }
 
     @Override
