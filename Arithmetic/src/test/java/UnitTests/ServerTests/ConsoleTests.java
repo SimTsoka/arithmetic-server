@@ -2,10 +2,7 @@ package UnitTests.ServerTests;
 
 import Players.PlayerDatabase;
 import Server.Console;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,11 +37,23 @@ public class ConsoleTests {
 
     @Test
     void testShutdown() {
-        byte[] inputStreamData = "shutdown\n".getBytes();
-        InputStream inputStream = new ByteArrayInputStream(inputStreamData);
-
-        console.initialise(inputStream);
+        console.initialise(generateInputStream("shutdown\n"));
         console.run();
         assertEquals("Shutting Down..", outputStream.toString().trim());
+    }
+
+    @Disabled
+    @Test
+    void testShutdownIncorrect() {
+        console.initialise(generateInputStream("shutd0wn\nshutdown\n"));
+        console.run();
+
+        String expected = "Error! Please enter a valid server command.\nShutting Down..";
+        assertEquals(expected, outputStream.toString().trim());
+    }
+
+    private InputStream generateInputStream(String userInput) {
+        byte[] inputStreamData = userInput.getBytes();
+        return new ByteArrayInputStream(inputStreamData);
     }
 }
