@@ -45,10 +45,19 @@ public class ConsoleTests {
     @Disabled
     @Test
     void testShutdownIncorrect() {
-        console.initialise(generateInputStream("shutd0wn\nshutdown\n"));
+        console.initialise(generateInputStream("shutd0wn\nshutdown"));
         console.run();
 
         String expected = "Error! Please enter a valid server command.\nShutting Down..";
+        assertEquals(expected, outputStream.toString().trim());
+    }
+
+    @Test
+    void testPlayersCommandWithNoPlayers() {
+        console.initialise(generateInputStream("Players\nshutdown\n"));
+        console.run();
+
+        String expected = "No players found.\nShutting Down..";
         assertEquals(expected, outputStream.toString().trim());
     }
 
