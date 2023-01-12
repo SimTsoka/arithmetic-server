@@ -1,5 +1,6 @@
 package UnitTests.ServerTests;
 
+import Players.Player;
 import Players.PlayerDatabase;
 import Server.Console;
 import org.junit.jupiter.api.*;
@@ -16,9 +17,12 @@ public class ConsoleTests {
     private Console console;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+    @BeforeAll
+    static void clearDatabase() {
+        PlayerDatabase.reset();
+    }
     @BeforeEach
     void setUp() {
-        PlayerDatabase.reset();
         console = new Console();
         System.setOut(new PrintStream(outputStream));
 
@@ -28,10 +32,6 @@ public class ConsoleTests {
     void tearDown() {
         console = null;
         System.setOut(System.out);
-    }
-
-    @AfterAll
-    static void clearDatabase() {
         PlayerDatabase.reset();
     }
 
@@ -61,8 +61,30 @@ public class ConsoleTests {
         assertEquals(expected, outputStream.toString().trim());
     }
 
+    @Test
+    void testPlayersCommandWithPlayers() {
+        generateAndAddPlayers(2);
+
+        console.initialise(generateInputStream("Players\nshutdown\n"));
+        console.run();
+
+        String expected = """
+                Number of players = 2
+                Players:
+                Player_1
+                Player_2
+                Shutting Down..""";
+        assertEquals(expected, outputStream.toString().trim());
+    }
+
     private InputStream generateInputStream(String userInput) {
         byte[] inputStreamData = userInput.getBytes();
         return new ByteArrayInputStream(inputStreamData);
+    }
+
+    private void generateAndAddPlayers(int n) {
+        for (int i = 0; i < n; i++) {
+            PlayerDatabase.addNewPlayer(new Player("Player_"+(i+1)));
+        }
     }
 }
