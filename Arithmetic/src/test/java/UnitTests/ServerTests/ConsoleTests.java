@@ -42,7 +42,7 @@ public class ConsoleTests {
         assertEquals("Shutting Down..", outputStream.toString().trim());
     }
 
-    @Disabled
+//    @Disabled
     @Test
     void testShutdownIncorrect() {
         console.initialise(generateInputStream("shutd0wn\nshutdown"));
