@@ -15,7 +15,7 @@ public abstract class ServerCommand {
         return switch (input.toLowerCase()) {
             case "shutdown" -> new ShutdownCommand();
             case "players" -> new PlayersCommand();
-            default -> null;
+            default -> new WrongCommand();
         };
     }
 
