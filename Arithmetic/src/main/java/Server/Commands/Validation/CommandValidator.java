@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CommandValidator {
     private final String[] command;
-    private final List<String> noArgsCommands = List.of("shutdown", "players");
+    private final List<String> noArgsCommands = List.of("shutdown", "players", "help");
 
     public CommandValidator(String userInput) {
         command = userInput.isEmpty() ? new String[]{} : userInput.split(" ");

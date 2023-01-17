@@ -34,6 +34,7 @@ public class ValidatorTests {
     void singleCommandSuccessful() {
         assertEquals("players", new CommandValidator("PLayers").validate());
         assertEquals("shutdown", new CommandValidator("SHUtdown").validate());
+        assertEquals("help", new CommandValidator("HELP").validate());
     }
 
     @Test
