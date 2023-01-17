@@ -3,6 +3,7 @@ package UnitTests.ServerTests.CommandsTests;
 import Server.Commands.PlayersCommand;
 import Server.Commands.ServerCommand;
 import Server.Commands.ShutdownCommand;
+import Server.Commands.Validation.HelpCommand;
 import Server.Commands.WrongCommand;
 import org.junit.jupiter.api.Test;
 
@@ -23,5 +24,10 @@ public class CommandCreatorTests {
     @Test
     void testCreateWrongCommand() {
         assertEquals(new WrongCommand(), ServerCommand.createCommand("shutd0wn"));
+    }
+
+    @Test
+    void testCreateHelpCommand() {
+        assertEquals(new HelpCommand(), ServerCommand.createCommand("Help"));
     }
 }
