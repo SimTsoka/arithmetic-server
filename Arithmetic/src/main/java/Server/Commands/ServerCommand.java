@@ -1,5 +1,6 @@
 package Server.Commands;
 
+import Server.Commands.Validation.HelpCommand;
 import Server.Server;
 
 public abstract class ServerCommand {
@@ -15,6 +16,7 @@ public abstract class ServerCommand {
         return switch (input.toLowerCase()) {
             case "shutdown" -> new ShutdownCommand();
             case "players" -> new PlayersCommand();
+            case "help" -> new HelpCommand();
             default -> new WrongCommand();
         };
     }
