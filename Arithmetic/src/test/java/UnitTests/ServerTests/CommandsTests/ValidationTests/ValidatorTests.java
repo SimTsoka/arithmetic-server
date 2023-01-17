@@ -1,6 +1,5 @@
 package UnitTests.ServerTests.CommandsTests.ValidationTests;
 
-import Players.PlayerDatabase;
 import Server.Commands.Validation.CommandValidator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +27,7 @@ public class ValidatorTests {
     @Test
     void noCommandEntered() {
         assertEquals("", new CommandValidator("").validate());
-        assertEquals("Error! Please enter a command.", outputStream.toString().trim());
+        assertEquals("Error! Please enter a command.", getOutputStream());
     }
 
     @Test
@@ -40,6 +39,10 @@ public class ValidatorTests {
     @Test
     void singleCommandUnsuccessful() {
         assertEquals("", new CommandValidator("PL@yers").validate());
-        assertEquals("", new CommandValidator("SHUtd0wn").validate());
+        assertEquals("Invalid Command! Enter \"help\" for a list of valid commands.", getOutputStream());
+    }
+
+    String getOutputStream() {
+        return outputStream.toString().trim();
     }
 }

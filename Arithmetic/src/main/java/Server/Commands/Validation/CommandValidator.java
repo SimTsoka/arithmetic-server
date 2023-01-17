@@ -1,7 +1,5 @@
 package Server.Commands.Validation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CommandValidator {
@@ -28,6 +26,15 @@ public class CommandValidator {
     }
 
     private String singleCommand() {
-        return noArgsCommands.contains(command[0].toLowerCase()) ? command[0].toLowerCase() : "";
+        if (noArgsCommands.contains(command[0].toLowerCase())) {
+            return command[0].toLowerCase();
+        } else {
+            printInvalidSingleCommand();
+            return "";
+        }
+    }
+
+    private void printInvalidSingleCommand() {
+        System.out.println("Invalid Command! Enter \"help\" for a list of valid commands.");
     }
 }
