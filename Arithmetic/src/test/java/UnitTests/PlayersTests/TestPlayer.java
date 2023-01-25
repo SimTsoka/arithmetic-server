@@ -1,4 +1,4 @@
-package UnitTests.PlayersTest;
+package UnitTests.PlayersTests;
 
 import Players.Player;
 import org.junit.jupiter.api.Test;

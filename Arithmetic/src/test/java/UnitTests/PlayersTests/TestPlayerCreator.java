@@ -1,4 +1,4 @@
-package UnitTests.PlayersTest;
+package UnitTests.PlayersTests;
 
 import Players.PlayerCreator;
 import Players.Player;
