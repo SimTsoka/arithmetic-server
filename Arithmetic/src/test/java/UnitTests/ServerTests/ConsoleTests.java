@@ -77,6 +77,20 @@ public class ConsoleTests {
         assertEquals(expected, outputStream.toString().trim());
     }
 
+    @Test
+    void testHelp() {
+        console.initialise(generateInputStream("Help\nshutdown"));
+        console.run();
+
+        String expected = """
+                HERE IS A LIST OF COMMANDS:
+                Help - For more information on commands.
+                Players - Returns a list of players that have launched into the program.
+                Shutdown - Shuts the whole server down.
+                Shutting Down..""";
+        assertEquals(expected, outputStream.toString().trim());
+    }
+
     private InputStream generateInputStream(String userInput) {
         byte[] inputStreamData = userInput.getBytes();
         return new ByteArrayInputStream(inputStreamData);

@@ -2,8 +2,6 @@ package Server.Commands.Validation;
 
 import java.util.List;
 
-// TODO: Continue working on validation
-
 public class CommandValidator {
     private final String[] command;
     private final List<String> noArgsCommands = List.of("shutdown", "players", "help");
