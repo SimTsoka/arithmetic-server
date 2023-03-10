@@ -1,4 +1,4 @@
-package Server.Commands.Validation;
+package Server.Commands;
 
 import Server.Commands.ServerCommand;
 

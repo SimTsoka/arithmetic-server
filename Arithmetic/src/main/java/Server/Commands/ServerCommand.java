@@ -1,8 +1,5 @@
 package Server.Commands;
 
-import Server.Commands.Validation.HelpCommand;
-import Server.Server;
-
 public abstract class ServerCommand {
     protected String name;
 
