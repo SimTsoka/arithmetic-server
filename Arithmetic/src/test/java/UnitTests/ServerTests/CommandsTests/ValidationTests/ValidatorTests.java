@@ -27,7 +27,7 @@ public class ValidatorTests {
     @Test
     void noCommandEntered() {
         assertEquals("", new CommandValidator("   ").validate());
-        assertEquals("Error! Please enter a command.", getOutputStream());
+        assertEquals("Error! Please enter a valid server command.", getOutputStream());
     }
 
     @Test

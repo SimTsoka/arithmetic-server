@@ -21,7 +21,7 @@ public class CommandValidator {
     }
 
     private String emptyCommand() {
-        System.out.println("Error! Please enter a command.");
+        System.out.println("Error! Please enter a valid server command.");
         return "";
     }
 

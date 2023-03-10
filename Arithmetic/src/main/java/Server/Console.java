@@ -1,6 +1,7 @@
 package Server;
 
 import Server.Commands.ServerCommand;
+import Server.Commands.Validation.CommandValidator;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -21,9 +22,18 @@ public class Console implements Runnable{
     @Override
     public void run() {
         while (serverOn) {
-            String userInput = scanner.nextLine();
+            String userInput = checkInput();
             ServerCommand serverCommand = ServerCommand.createCommand(userInput);
             serverOn = serverCommand.execute();
         }
+    }
+
+    private String checkInput() {
+        String userInput;
+
+        while ("".equals(userInput = new CommandValidator(scanner.nextLine()).validate())) {
+        }
+
+        return userInput;
     }
 }

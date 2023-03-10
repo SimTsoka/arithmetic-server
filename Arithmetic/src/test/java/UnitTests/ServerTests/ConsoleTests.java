@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConsoleTests {
 
@@ -48,7 +49,7 @@ public class ConsoleTests {
         console.initialise(generateInputStream("shutd0wn\nshutdown"));
         console.run();
 
-        String expected = "Error! Please enter a valid server command.\nShutting Down..";
+        String expected = "Invalid Command! Enter \"help\" for a list of valid commands.\nShutting Down..";
         assertEquals(expected, outputStream.toString().trim());
     }
 
@@ -88,6 +89,34 @@ public class ConsoleTests {
                 Players - Returns a list of players that have launched into the program.
                 Shutdown - Shuts the whole server down.
                 Shutting Down..""";
+        assertEquals(expected, outputStream.toString().trim());
+    }
+
+    @Test
+    void testEmptyInput() {
+        console.initialise(generateInputStream("\nshutdown"));
+        console.run();
+
+        String expected = """
+                Error! Please enter a valid server command.
+                Shutting Down..""";
+
+        assertEquals(expected, outputStream.toString().trim());
+    }
+
+    @Test
+    void testInvalidInput() {
+        console.initialise(generateInputStream("help me\nhelp\nshutdown"));
+        console.run();
+
+        String expected = """
+                Invalid Command! Enter "help" for a list of valid commands.
+                HERE IS A LIST OF COMMANDS:
+                Help - For more information on commands.
+                Players - Returns a list of players that have launched into the program.
+                Shutdown - Shuts the whole server down.
+                Shutting Down..""";
+
         assertEquals(expected, outputStream.toString().trim());
     }
 
