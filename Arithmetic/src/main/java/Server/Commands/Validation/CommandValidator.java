@@ -17,9 +17,9 @@ public class CommandValidator {
             return emptyCommand();
         } else if (command.length == 1) {
             return singleCommand();
+        } else {
+            return invalidCommand();
         }
-
-        return "testing";
     }
 
     private String emptyCommand() {
@@ -31,12 +31,12 @@ public class CommandValidator {
         if (noArgsCommands.contains(command[0].toLowerCase())) {
             return command[0].toLowerCase();
         } else {
-            printInvalidSingleCommand();
-            return "";
+            return invalidCommand();
         }
     }
 
-    private void printInvalidSingleCommand() {
+    private String invalidCommand() {
         System.out.println("Invalid Command! Enter \"help\" for a list of valid commands.");
+        return "";
     }
 }

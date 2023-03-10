@@ -26,7 +26,7 @@ public class ValidatorTests {
 
     @Test
     void noCommandEntered() {
-        assertEquals("", new CommandValidator("").validate());
+        assertEquals("", new CommandValidator("   ").validate());
         assertEquals("Error! Please enter a command.", getOutputStream());
     }
 
@@ -40,6 +40,12 @@ public class ValidatorTests {
     @Test
     void singleCommandUnsuccessful() {
         assertEquals("", new CommandValidator("PL@yers").validate());
+        assertEquals("Invalid Command! Enter \"help\" for a list of valid commands.", getOutputStream());
+    }
+
+    @Test
+    void moreThanOneWordEntered() {
+        assertEquals("", new CommandValidator("help me").validate());
         assertEquals("Invalid Command! Enter \"help\" for a list of valid commands.", getOutputStream());
     }
 
