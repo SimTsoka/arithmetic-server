@@ -11,10 +11,10 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConsoleTests {
 
+    //TODO: Don't forget to remove WrongCommand
     private Console console;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
