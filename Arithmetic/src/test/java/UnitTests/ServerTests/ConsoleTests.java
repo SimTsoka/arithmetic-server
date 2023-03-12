@@ -40,7 +40,7 @@ public class ConsoleTests {
     void testShutdown() {
         console.initialise(generateInputStream("shutdown\n"));
         console.run();
-        assertEquals("Shutting Down..", outputStream.toString().trim());
+        assertEquals("Initialising Server Console.\nShutting Down..", outputStream.toString().trim());
     }
 
 //    @Disabled
@@ -49,7 +49,7 @@ public class ConsoleTests {
         console.initialise(generateInputStream("shutd0wn\nshutdown"));
         console.run();
 
-        String expected = "Invalid Command! Enter \"help\" for a list of valid commands.\nShutting Down..";
+        String expected = "Initialising Server Console.\nInvalid Command! Enter \"help\" for a list of valid commands.\nShutting Down..";
         assertEquals(expected, outputStream.toString().trim());
     }
 
@@ -58,7 +58,7 @@ public class ConsoleTests {
         console.initialise(generateInputStream("Players\nshutdown\n"));
         console.run();
 
-        String expected = "No players found.\nShutting Down..";
+        String expected = "Initialising Server Console.\nNo players found.\nShutting Down..";
         assertEquals(expected, outputStream.toString().trim());
     }
 
@@ -70,6 +70,7 @@ public class ConsoleTests {
         console.run();
 
         String expected = """
+                Initialising Server Console.
                 Number of players = 2
                 Players:
                 Player_1
@@ -84,6 +85,7 @@ public class ConsoleTests {
         console.run();
 
         String expected = """
+                Initialising Server Console.
                 HERE IS A LIST OF COMMANDS:
                 Help - For more information on commands.
                 Players - Returns a list of players that have launched into the program.
@@ -98,6 +100,7 @@ public class ConsoleTests {
         console.run();
 
         String expected = """
+                Initialising Server Console.
                 Error! Please enter a valid server command.
                 Shutting Down..""";
 
@@ -110,6 +113,7 @@ public class ConsoleTests {
         console.run();
 
         String expected = """
+                Initialising Server Console.
                 Invalid Command! Enter "help" for a list of valid commands.
                 HERE IS A LIST OF COMMANDS:
                 Help - For more information on commands.

@@ -15,6 +15,7 @@ public class Console implements Runnable{
     }
 
     public void initialise(InputStream inputStream) {
+        Printer.printMsg("Initialising Server Console.");
         serverOn = true;
         scanner = new Scanner(inputStream);
     }

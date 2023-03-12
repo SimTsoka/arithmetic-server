@@ -5,23 +5,50 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server implements Runnable{
-    private final int DEFAULT_PORT = 5000;
     private ServerSocket serverSocket;
-    private Socket client;
+
     @Override
     public void run() {
+        createServerSocket();
+        startConsoleThread();
+        checkIncomingConnections();
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server();
+        Printer.printMsg("Starting server..");
+        server.run();
+    }
+
+    private void createServerSocket() {
         try {
+            Printer.printMsg("Creating server socket..");
+            int DEFAULT_PORT = 5000;
             serverSocket = new ServerSocket(DEFAULT_PORT);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println("Server running");
+        Printer.printMsg("Server socket created successfully\n");
+    }
+
+    private void startConsoleThread() {
+        Console serverConsole = new Console();
+        serverConsole.initialise();
+
+        Printer.printMsg("Starting Server Console thread.");
+        Thread thread = new Thread(serverConsole);
+        thread.start();
+        Printer.printMsg("Thread started successfully\n");
+    }
+
+    private void checkIncomingConnections() {
+        Printer.printMsg("Checking incoming connections..");
 
         while(true) {
             try {
-                client = serverSocket.accept();
-                System.out.println("Client connected: " + client.isConnected());
+                Socket client = serverSocket.accept();
+                Printer.printMsg("Client connected: " + client.isConnected());
 
                 Thread thread = new Thread(new ClientHandler(client));
                 thread.start();
@@ -29,10 +56,5 @@ public class Server implements Runnable{
                 e.printStackTrace();
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Server server = new Server();
-        server.run();
     }
 }
