@@ -27,6 +27,9 @@ public class Console implements Runnable{
             ServerCommand serverCommand = ServerCommand.createCommand(userInput);
             serverOn = serverCommand.execute();
         }
+
+        //TODO:Exit works but need to find a way to send a message to the client, and close all streams
+        System.exit(0);
     }
 
     private String checkInput() {
