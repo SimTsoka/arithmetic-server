@@ -1,7 +1,7 @@
 package Server;
 
-import Server.Commands.ServerCommand;
-import Server.Commands.Validation.CommandValidator;
+import Server.ServerCommands.ServerCommand;
+import Server.ServerCommands.Validation.CommandValidator;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Console implements Runnable{
     private boolean serverOn;
     private Scanner scanner;
+    private boolean isTest = false;
 
     public void initialise() {
         initialise(System.in);
@@ -20,6 +21,14 @@ public class Console implements Runnable{
         scanner = new Scanner(inputStream);
     }
 
+    public void testOn() {
+        isTest = true;
+    }
+
+    public void testOff() {
+        isTest = false;
+    }
+
     @Override
     public void run() {
         while (serverOn) {
@@ -28,8 +37,10 @@ public class Console implements Runnable{
             serverOn = serverCommand.execute();
         }
 
-        //TODO:Exit works but need to find a way to send a message to the client, and close all streams
-        System.exit(0);
+        //TODO:Client will handle shutdown message
+        if (!isTest) {
+            System.exit(0);
+        }
     }
 
     private String checkInput() {

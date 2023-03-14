@@ -1,10 +1,10 @@
 package UnitTests.ServerTests.CommandsTests;
 
-import Server.Commands.PlayersCommand;
-import Server.Commands.ServerCommand;
-import Server.Commands.ShutdownCommand;
-import Server.Commands.HelpCommand;
-import Server.Commands.WrongCommand;
+import Server.ServerCommands.PlayersCommand;
+import Server.ServerCommands.ServerCommand;
+import Server.ServerCommands.ShutdownCommand;
+import Server.ServerCommands.HelpCommand;
+import Server.ServerCommands.WrongCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

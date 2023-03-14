@@ -1,4 +1,4 @@
-package Server.Commands.Validation;
+package Server.ServerCommands.Validation;
 
 import java.util.List;
 

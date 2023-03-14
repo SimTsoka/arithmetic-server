@@ -2,7 +2,7 @@ package UnitTests.ServerTests.CommandsTests;
 
 import Players.Player;
 import Players.PlayerDatabase;
-import Server.Commands.PlayersCommand;
+import Server.ServerCommands.PlayersCommand;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

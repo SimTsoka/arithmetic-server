@@ -1,6 +1,6 @@
 package UnitTests.ServerTests.CommandsTests.ValidationTests;
 
-import Server.Commands.Validation.CommandValidator;
+import Server.ServerCommands.Validation.CommandValidator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

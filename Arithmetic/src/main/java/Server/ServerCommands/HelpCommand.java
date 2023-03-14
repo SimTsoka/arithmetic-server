@@ -1,6 +1,4 @@
-package Server.Commands;
-
-import Server.Commands.ServerCommand;
+package Server.ServerCommands;
 
 public class HelpCommand extends ServerCommand {
 

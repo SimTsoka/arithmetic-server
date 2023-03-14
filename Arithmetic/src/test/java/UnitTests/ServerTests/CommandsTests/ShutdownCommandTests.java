@@ -1,7 +1,6 @@
 package UnitTests.ServerTests.CommandsTests;
 
-import Players.PlayerDatabase;
-import Server.Commands.ShutdownCommand;
+import Server.ServerCommands.ShutdownCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

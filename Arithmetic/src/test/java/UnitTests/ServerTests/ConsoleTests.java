@@ -25,6 +25,7 @@ public class ConsoleTests {
     @BeforeEach
     void setUp() {
         console = new Console();
+        console.testOn();
         System.setOut(new PrintStream(outputStream));
 
     }

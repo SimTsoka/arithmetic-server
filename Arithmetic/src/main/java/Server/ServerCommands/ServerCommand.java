@@ -1,4 +1,4 @@
-package Server.Commands;
+package Server.ServerCommands;
 
 public abstract class ServerCommand {
     protected String name;

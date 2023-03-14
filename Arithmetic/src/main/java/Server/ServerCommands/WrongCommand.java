@@ -1,4 +1,4 @@
-package Server.Commands;
+package Server.ServerCommands;
 
 public class WrongCommand extends ServerCommand{
 
