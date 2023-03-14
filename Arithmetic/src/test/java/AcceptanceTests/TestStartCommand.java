@@ -33,15 +33,33 @@ public class TestStartCommand {
                 "command", "start",
                 "arg", new JSONArray(List.of("Simon"))
         ));
-        String introMsg = "Welcome to Arithmetics!!!\n" +
-                "To get started, please enter \"start\" followed by your username.\n";
-
-        JSONObject introResponse = testClient.receiveResponse();
-        assertEquals(introMsg, introResponse.getString("message"));
+        checkIntroMsg();
 
         JSONObject response = testClient.sendRequest(request);
         assertEquals("OK", response.get("status"));
         assertEquals("You have successfully launched into the program.\n", response.get("message"));
         assertEquals("Simon", response.get("name"));
+    }
+
+    @Test
+    void testStartUnsuccessful() {
+        JSONObject request = new JSONObject(Map.of(
+                "command", "start",
+                "arg", new JSONArray(List.of("Simon"))
+        ));
+
+        checkIntroMsg();
+        JSONObject response = testClient.sendRequest(request);
+        assertEquals("OK", response.get("status"));
+        assertEquals("You have successfully launched into the program.\n", response.get("message"));
+        assertEquals("Simon", response.get("name"));
+    }
+
+    void checkIntroMsg() {
+        String introMsg = "Welcome to Arithmetics!!!\n" +
+                "To get started, please enter \"start\" followed by your username.\n";
+
+        JSONObject introResponse = testClient.receiveResponse();
+        assertEquals(introMsg, introResponse.getString("message"));
     }
 }
