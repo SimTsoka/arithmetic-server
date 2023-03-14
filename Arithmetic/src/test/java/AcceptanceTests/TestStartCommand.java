@@ -42,17 +42,29 @@ public class TestStartCommand {
     }
 
     @Test
-    void testStartUnsuccessful() {
+    void testStartUnsuccessfulWrongName() {
         JSONObject request = new JSONObject(Map.of(
                 "command", "start",
+                "arg", new JSONArray(List.of("S!mon"))
+        ));
+
+        checkIntroMsg();
+        JSONObject response = testClient.sendRequest(request);
+        assertEquals("ERROR", response.get("status"));
+        assertEquals("Please enter \"start\" followed by your username.\n", response.get("message"));
+    }
+
+    @Test
+    void testStartUnsuccessfulIncorrectSpelling() {
+        JSONObject request = new JSONObject(Map.of(
+                "command", "st@rt",
                 "arg", new JSONArray(List.of("Simon"))
         ));
 
         checkIntroMsg();
         JSONObject response = testClient.sendRequest(request);
-        assertEquals("OK", response.get("status"));
-        assertEquals("You have successfully launched into the program.\n", response.get("message"));
-        assertEquals("Simon", response.get("name"));
+        assertEquals("ERROR", response.get("status"));
+        assertEquals("Please enter \"start\" followed by your username.\n", response.get("message"));
     }
 
     void checkIntroMsg() {

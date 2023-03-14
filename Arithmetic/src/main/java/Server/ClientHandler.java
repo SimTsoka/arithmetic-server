@@ -88,7 +88,11 @@ public class ClientHandler implements Runnable{
     }
 
     public static void printToConsole(JSONObject response) {
-        System.out.printf("%1s: %2s%n", response.get("name"), response.get("message"));
+        if (response.get("message").equals("Please enter \"start\" followed by your username.\n")) {
+            System.out.println("User didn't launch correctly\n");
+        } else {
+            System.out.printf("%1s: %2s%n", response.get("name"), response.get("message"));
+        }
     }
 
     public void initialiseStreams() throws IOException {
