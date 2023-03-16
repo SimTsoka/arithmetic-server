@@ -67,6 +67,21 @@ public class TestStartCommand {
         assertEquals("Please enter \"start\" followed by your username.\n", response.get("message"));
     }
 
+    @Test
+    void testStartUnsuccessfulMultipleCommands() {
+        JSONObject request = new JSONObject(Map.of(
+                "command", "start",
+                "arg", new JSONArray(List.of("Forward","Simon"))
+        ));
+
+        checkIntroMsg();
+        JSONObject response = testClient.sendRequest(request);
+        assertEquals("ERROR", response.get("status"));
+        assertEquals("Please enter \"start\" followed by your username.\n", response.get("message"));
+    }
+
+    //TODO:More start scenarios
+
     void checkIntroMsg() {
         String introMsg = "Welcome to Arithmetics!!!\n" +
                 "To get started, please enter \"start\" followed by your username.\n";
