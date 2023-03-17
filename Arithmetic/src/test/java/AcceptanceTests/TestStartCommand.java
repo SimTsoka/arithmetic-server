@@ -80,13 +80,48 @@ public class TestStartCommand {
         assertEquals("Please enter \"start\" followed by your username.\n", response.get("message"));
     }
 
+    @Test
+    void testStartSuccessfulMultipleClients() {
+        launchNClients(10);
+    }
+
     //TODO:More start scenarios
 
     void checkIntroMsg() {
+        checkIntroMsg(testClient);
+    }
+
+    void checkIntroMsg(TestClient client) {
         String introMsg = "Welcome to Arithmetics!!!\n" +
                 "To get started, please enter \"start\" followed by your username.\n";
 
-        JSONObject introResponse = testClient.receiveResponse();
+        JSONObject introResponse = client.receiveResponse();
         assertEquals(introMsg, introResponse.getString("message"));
+    }
+
+    void launchNClients(int n){
+        for (int i = 0; i < n; i++) {
+            JSONObject request = new JSONObject(Map.of(
+                    "command", "start",
+                    "arg", new JSONArray(List.of("Player" + i+1))
+            ));
+
+            TestClient client = createClient();
+            client.connect(IP, PORT);
+            checkIntroMsg(client);
+            JSONObject response = client.sendRequest(request);
+            assertEquals("OK", response.get("status"));
+            assertEquals("You have successfully launched into the program.\n", response.get("message"));
+            assertEquals("Player"+i+1, response.get("name"));
+            client.disconnect();
+        }
+    }
+
+    TestClient createClient(){
+        return new TestClient();
+    }
+
+    void disconnectClient(TestClient client) {
+        client.disconnect();
     }
 }
