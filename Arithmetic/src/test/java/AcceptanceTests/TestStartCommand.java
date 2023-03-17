@@ -29,16 +29,7 @@ public class TestStartCommand {
 
     @Test
     void testStartSuccessful() {
-        JSONObject request = new JSONObject(Map.of(
-                "command", "start",
-                "arg", new JSONArray(List.of("Simon"))
-        ));
-        checkIntroMsg();
-
-        JSONObject response = testClient.sendRequest(request);
-        assertEquals("OK", response.get("status"));
-        assertEquals("You have successfully launched into the program.\n", response.get("message"));
-        assertEquals("Simon", response.get("name"));
+        launchNClients(1);
     }
 
     @Test
