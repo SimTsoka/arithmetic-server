@@ -101,17 +101,14 @@ public class TestStartCommand {
 
     void launchNClients(int n){
         for (int i = 0; i < n; i++) {
-            String name;
-            JSONObject request = new JSONObject(Map.of(
-                    "command", "start",
-                    "arg", new JSONArray(List.of(name = "Player" + i+1))
-            ));
+            String name = "Player"+i+1;
 
+            JSONObject request = createRequestMessage(name);
             TestClient client = createClient();
             client.connect(IP, PORT);
             checkIntroMsg(client);
             checkIfLaunchSuccessful(client, request, name);
-            disconnectClient(client);
+            client.disconnect();
         }
     }
 
@@ -119,14 +116,17 @@ public class TestStartCommand {
         return new TestClient();
     }
 
-    void disconnectClient(TestClient client) {
-        client.disconnect();
-    }
-
     void checkIfLaunchSuccessful(TestClient client, JSONObject request, String name) {
         JSONObject response = client.sendRequest(request);
         assertEquals("OK", response.get("status"));
         assertEquals("You have successfully launched into the program.\n", response.get("message"));
         assertEquals(name, response.get("name"));
+    }
+
+    JSONObject createRequestMessage(String name) {
+        return new JSONObject(Map.of(
+                "command", "start",
+                "arg", new JSONArray(List.of(name))
+        ));
     }
 }
