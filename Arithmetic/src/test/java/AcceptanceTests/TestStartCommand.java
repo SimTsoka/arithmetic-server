@@ -29,16 +29,7 @@ public class TestStartCommand {
 
     @Test
     void testStartSuccessful() {
-        JSONObject request = new JSONObject(Map.of(
-                "command", "start",
-                "arg", new JSONArray(List.of("Simon"))
-        ));
-        checkIntroMsg();
-
-        JSONObject response = testClient.sendRequest(request);
-        assertEquals("OK", response.get("status"));
-        assertEquals("You have successfully launched into the program.\n", response.get("message"));
-        assertEquals("Simon", response.get("name"));
+        launchNClients(1);
     }
 
     @Test
@@ -101,18 +92,13 @@ public class TestStartCommand {
 
     void launchNClients(int n){
         for (int i = 0; i < n; i++) {
-            JSONObject request = new JSONObject(Map.of(
-                    "command", "start",
-                    "arg", new JSONArray(List.of("Player" + i+1))
-            ));
+            String name = "Player"+i+1;
 
+            JSONObject request = createRequestMessage(name);
             TestClient client = createClient();
             client.connect(IP, PORT);
             checkIntroMsg(client);
-            JSONObject response = client.sendRequest(request);
-            assertEquals("OK", response.get("status"));
-            assertEquals("You have successfully launched into the program.\n", response.get("message"));
-            assertEquals("Player"+i+1, response.get("name"));
+            checkIfLaunchSuccessful(client, request, name);
             client.disconnect();
         }
     }
@@ -121,7 +107,17 @@ public class TestStartCommand {
         return new TestClient();
     }
 
-    void disconnectClient(TestClient client) {
-        client.disconnect();
+    void checkIfLaunchSuccessful(TestClient client, JSONObject request, String name) {
+        JSONObject response = client.sendRequest(request);
+        assertEquals("OK", response.get("status"));
+        assertEquals("You have successfully launched into the program.\n", response.get("message"));
+        assertEquals(name, response.get("name"));
+    }
+
+    JSONObject createRequestMessage(String name) {
+        return new JSONObject(Map.of(
+                "command", "start",
+                "arg", new JSONArray(List.of(name))
+        ));
     }
 }
