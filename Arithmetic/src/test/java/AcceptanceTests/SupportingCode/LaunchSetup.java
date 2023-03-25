@@ -14,13 +14,13 @@ public class LaunchSetup {
     private final static int PORT = 5000;
     private final static String IP = "localhost";
 
-    void launchNClients(int n){
+    static void launchNClients(int n){
         for (int i = 0; i < n; i++) {
             launchClient("Player"+i+1);
         }
     }
 
-    void launchClient(String name) {
+    static void launchClient(String name) {
         JSONObject request = createRequestMessage(name);
         TestClient client = createClient();
         client.connect(IP, PORT);
@@ -29,25 +29,25 @@ public class LaunchSetup {
         client.disconnect();
     }
 
-    TestClient createClient(){
+    static TestClient createClient(){
         return new TestClient();
     }
 
-    void checkIfLaunchSuccessful(TestClient client, JSONObject request, String name) {
+    static void checkIfLaunchSuccessful(TestClient client, JSONObject request, String name) {
         JSONObject response = client.sendRequest(request);
         assertEquals("OK", response.get("status"));
         assertEquals("You have successfully launched into the program.\n", response.get("message"));
         assertEquals(name, response.get("name"));
     }
 
-    JSONObject createRequestMessage(String name) {
+    static JSONObject createRequestMessage(String name) {
         return new JSONObject(Map.of(
                 "command", "start",
                 "arg", new JSONArray(List.of(name))
         ));
     }
 
-    void checkIntroMsg(TestClient client) {
+    static void checkIntroMsg(TestClient client) {
         String introMsg = "Welcome to Arithmetics!!!\n" +
                 "To get started, please enter \"start\" followed by your username.\n";
 
