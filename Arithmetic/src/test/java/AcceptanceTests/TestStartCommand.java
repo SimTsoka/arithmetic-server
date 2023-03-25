@@ -1,5 +1,6 @@
 package AcceptanceTests;
 
+import AcceptanceTests.SupportingCode.LaunchSetup;
 import Client.TestClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,7 +30,7 @@ public class TestStartCommand {
 
     @Test
     void testStartSuccessful() {
-        launchNClients(1);
+        LaunchSetup.launchClient("Simon");
     }
 
     @Test
