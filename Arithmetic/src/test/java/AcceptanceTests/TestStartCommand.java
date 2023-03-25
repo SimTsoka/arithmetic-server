@@ -76,7 +76,10 @@ public class TestStartCommand {
         launchNClients(10);
     }
 
-    //TODO:More start scenarios
+    @Test
+    void testStartDuplicateNames() {
+
+    }
 
     void checkIntroMsg() {
         checkIntroMsg(testClient);
@@ -92,15 +95,17 @@ public class TestStartCommand {
 
     void launchNClients(int n){
         for (int i = 0; i < n; i++) {
-            String name = "Player"+i+1;
-
-            JSONObject request = createRequestMessage(name);
-            TestClient client = createClient();
-            client.connect(IP, PORT);
-            checkIntroMsg(client);
-            checkIfLaunchSuccessful(client, request, name);
-            client.disconnect();
+            launchClient("Player"+i+1);
         }
+    }
+
+    void launchClient(String name) {
+        JSONObject request = createRequestMessage(name);
+        TestClient client = createClient();
+        client.connect(IP, PORT);
+        checkIntroMsg(client);
+        checkIfLaunchSuccessful(client, request, name);
+        client.disconnect();
     }
 
     TestClient createClient(){
