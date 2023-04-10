@@ -9,18 +9,18 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LaunchSetup {
+public class TestStartSupportingCode {
 
     public final static int PORT = 5000;
     public final static String IP = "localhost";
 
     static void launchNClients(int n){
         for (int i = 0; i < n; i++) {
-            launchClient("Player"+i+1);
+            launchClientAndExit("Player"+i+1);
         }
     }
 
-    public static void launchClient(String name) {
+    public static void launchClientAndExit(String name) {
         JSONObject request = createRequestMessage(name);
         TestClient client = createClient();
         client.connect(IP, PORT);
