@@ -16,12 +16,16 @@ public class ClientHandler implements Runnable{
     private PrintStream out;
     private BufferedReader in;
     private String messageFromClient;
-    private static boolean isCreated = false;
+    private static boolean isCreated = false; //TODO: We need to fix this. Either change/remove test since this is static
     private static Player player;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         initialiseStreams();
+    }
+
+    public ClientHandler() {
+        this.socket = null;
     }
 
     @Override
@@ -37,6 +41,8 @@ public class ClientHandler implements Runnable{
                 if (!isCreated) {
                     response = checkStartRequirements(msg);
                     printToConsole(response);
+                } else {
+
                 }
 
                 out.println(response);
@@ -49,7 +55,7 @@ public class ClientHandler implements Runnable{
         }
     }
 
-    public static JSONObject intro() {
+    public JSONObject intro() {
         JSONObject response = new JSONObject();
         String message = "Welcome to Arithmetics!!!\n" +
                 "To get started, please enter \"start\" followed by your username.\n";
@@ -103,6 +109,12 @@ public class ClientHandler implements Runnable{
     public void shutdown() {
         try {
             PlayerDatabase.removePlayer(player);
+        } catch (NullPointerException e) {
+            System.out.println("Player doesn't exist, ");
+        }
+
+        try {
+
             out.close();
             in.close();
             socket.close();

@@ -9,6 +9,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,11 +29,12 @@ public class ClientHandlerTests {
     }
 
     @Test
-    void testIntro() {
+    void testIntro() throws IOException {
         String expected = "Welcome to Arithmetics!!!\n" +
                         "To get started, please enter \"start\" followed by your username.\n";
 
-        assertEquals(expected, ClientHandler.intro().getString("message"));
+        ClientHandler clientHandler = new ClientHandler();
+        assertEquals(expected, clientHandler.intro().getString("message"));
     }
 
     // Check this
