@@ -16,8 +16,8 @@ public class ClientHandler implements Runnable{
     private PrintStream out;
     private BufferedReader in;
     private String messageFromClient;
-    private static boolean isCreated = false; //TODO: We need to fix this. Either change/remove test since this is static
-    private static Player player;
+    private boolean isCreated = false;
+    private Player player;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
@@ -75,25 +75,25 @@ public class ClientHandler implements Runnable{
         }
     }
 
-    public static Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public static void setPlayer(Player newPlayer) {
+    public void setPlayer(Player newPlayer) {
         player = newPlayer;
         isCreated = true;
     }
 
-    public static boolean isPlayerCreated() {
+    public boolean isPlayerCreated() {
         return isCreated;
     }
 
-    public static void reset() {
+    public void reset() {
         player = null;
         isCreated = false;
     }
 
-    public static void printToConsole(JSONObject response) {
+    public void printToConsole(JSONObject response) {
         if (response.get("message").equals("Please enter \"start\" followed by your username.\n")) {
             System.out.println("User didn't launch correctly\n");
         } else {

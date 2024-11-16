@@ -30,13 +30,14 @@ public class ClientHandlerTests {
 
     @Test
     void testIntro() {
-        String expected = "Welcome to Arithmetics!!!\n" +
-                        "To get started, please enter \"start\" followed by your username.\n";
+        String expected = """
+                Welcome to Arithmetics!!!
+                To get started, please enter "start" followed by your username.
+                """;
 
         assertEquals(expected, clientHandler.intro().getString("message"));
     }
 
-    // Check this
     @Test
     void testCheckStartRequirements() {
         JSONObject request = new JSONObject();

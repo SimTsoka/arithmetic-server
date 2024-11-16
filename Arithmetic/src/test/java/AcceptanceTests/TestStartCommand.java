@@ -96,7 +96,7 @@ public class TestStartCommand {
 
     void launchNClients(int n){
         for (int i = 0; i < n; i++) {
-            launchClient("Player"+i+1);
+            launchClient("Player"+(i+1));
         }
     }
 
