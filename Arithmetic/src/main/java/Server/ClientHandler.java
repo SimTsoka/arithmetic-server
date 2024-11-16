@@ -63,7 +63,7 @@ public class ClientHandler implements Runnable{
         return response;
     }
 
-    public static JSONObject checkStartRequirements(JSONObject msg) {
+    public JSONObject checkStartRequirements(JSONObject msg) {
         PlayerCreator playerCreator =  new PlayerCreator();
 
         if (playerCreator.isAccepted(msg.getString("command"), msg.getJSONArray("arg"))) {

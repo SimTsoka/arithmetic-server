@@ -29,7 +29,7 @@ public class ClientHandlerTests {
     }
 
     @Test
-    void testIntro() throws IOException {
+    void testIntro() {
         String expected = "Welcome to Arithmetics!!!\n" +
                         "To get started, please enter \"start\" followed by your username.\n";
 
@@ -46,7 +46,8 @@ public class ClientHandlerTests {
         request.put("command", "start");
         request.put("arg", args);
 
-        response = ClientHandler.checkStartRequirements(request);
+        ClientHandler clientHandler = new ClientHandler();
+        response = clientHandler.checkStartRequirements(request);
 
         assertEquals("OK", response.getString("status"));
         assertEquals("You have successfully launched into the program.\n",
@@ -65,7 +66,8 @@ public class ClientHandlerTests {
         request.put("arg", args);
         boolean nameExists = true;
 
-        JSONObject actual = ClientHandler.checkStartRequirements(request);
+        ClientHandler clientHandler = new ClientHandler();
+        JSONObject actual = clientHandler.checkStartRequirements(request);
         assertEquals("ERROR", actual.getString("status"));
         assertEquals("Please enter \"start\" followed by your username.\n", actual.getString("message"));
 
