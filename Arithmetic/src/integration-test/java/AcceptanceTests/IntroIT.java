@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestIntro {
+public class IntroIT {
     private final static int PORT = 5000;
     private final static String IP = "localhost";
     private final TestClient testClient = new TestClient();

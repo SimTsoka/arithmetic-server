@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestStartCommand {
+public class StartCommandIT {
     private final static int PORT = 5000;
     private final static String IP = "localhost";
     private final TestClient testClient = new TestClient();

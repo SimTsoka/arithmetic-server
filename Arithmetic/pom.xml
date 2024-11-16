@@ -31,6 +31,30 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <!-- Run tests during the integration-test phase -->
+                    <execution>
+                        <id>integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <!-- Verify results during the verify phase -->
+                    <execution>
+                        <id>verify-results</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Need to update and check why server doesn't start up -->
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
@@ -43,10 +67,10 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>java</executable>
+                            <executable>sh</executable>
                             <arguments>
-                                <argument>-jar</argument>
-                                <argument>${project.build.directory}/${project.build.finalName}.jar</argument>
+                                <argument>-c</argument>
+                                <argument>java -jar ${project.build.directory}/${project.build.finalName}.jar &amp; echo $! > ${project.build.directory}/server.pid</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -58,10 +82,10 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>pkill</executable>
+                            <executable>sh</executable>
                             <arguments>
-                                <argument>-f</argument>
-                                <argument>"java -jar ${project.build.directory}/${project.build.finalName}.jar"</argument>
+                                <argument>-c</argument>
+                                <argument>kill $(cat ${project.build.directory}/server.pid) || true</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -102,6 +126,18 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>Server.Server</mainClass> <!-- Replace with your main class -->
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

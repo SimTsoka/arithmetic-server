@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestConnection {
+public class ConnectionIT {
     private final static int PORT = 5000;
     private final static String IP = "localhost";
     private final TestClient testClient = new TestClient();
