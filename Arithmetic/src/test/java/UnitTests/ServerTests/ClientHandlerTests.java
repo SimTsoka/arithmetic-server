@@ -9,22 +9,22 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.net.Socket;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientHandlerTests {
+    private ClientHandler clientHandler;
+
     @BeforeEach
     void setUp() {
-        ClientHandler.reset();
+        clientHandler = new ClientHandler();
         PlayerDatabase.reset();
     }
 
     @AfterEach
     void tearDown() {
-        ClientHandler.reset();
+        clientHandler = null;
         PlayerDatabase.reset();
     }
 
@@ -33,7 +33,6 @@ public class ClientHandlerTests {
         String expected = "Welcome to Arithmetics!!!\n" +
                         "To get started, please enter \"start\" followed by your username.\n";
 
-        ClientHandler clientHandler = new ClientHandler();
         assertEquals(expected, clientHandler.intro().getString("message"));
     }
 
@@ -46,7 +45,6 @@ public class ClientHandlerTests {
         request.put("command", "start");
         request.put("arg", args);
 
-        ClientHandler clientHandler = new ClientHandler();
         response = clientHandler.checkStartRequirements(request);
 
         assertEquals("OK", response.getString("status"));
@@ -54,8 +52,8 @@ public class ClientHandlerTests {
                 response.getString("message"));
         assertEquals("Simon", response.getString("name"));
 
-        assertEquals("Simon", ClientHandler.getPlayer().getName());
-        assertTrue(ClientHandler.isPlayerCreated());
+        assertEquals("Simon", clientHandler.getPlayer().getName());
+        assertTrue(clientHandler.isPlayerCreated());
     }
 
     @Test
@@ -66,7 +64,6 @@ public class ClientHandlerTests {
         request.put("arg", args);
         boolean nameExists = true;
 
-        ClientHandler clientHandler = new ClientHandler();
         JSONObject actual = clientHandler.checkStartRequirements(request);
         assertEquals("ERROR", actual.getString("status"));
         assertEquals("Please enter \"start\" followed by your username.\n", actual.getString("message"));
@@ -78,7 +75,7 @@ public class ClientHandlerTests {
         }
 
         assertFalse(nameExists);
-        assertNull(ClientHandler.getPlayer());
-        assertFalse(ClientHandler.isPlayerCreated());
+        assertNull(clientHandler.getPlayer());
+        assertFalse(clientHandler.isPlayerCreated());
     }
 }
