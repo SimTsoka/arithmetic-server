@@ -119,6 +119,7 @@ public class ClientHandler implements Runnable{
             out.close();
             in.close();
             socket.close();
+
             reset();
         } catch (IOException e) {
             throw new RuntimeException();

@@ -1,9 +1,11 @@
 package Server;
 
+import Server.Exceptions.ConsoleWillNotStartException;
 import Server.ServerCommands.ServerCommand;
 import Server.ServerCommands.Validation.CommandValidator;
 
 import java.io.InputStream;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Console implements Runnable{
@@ -31,19 +33,23 @@ public class Console implements Runnable{
 
     @Override
     public void run() {
-        while (serverOn) {
-            String userInput = checkInput();
-            ServerCommand serverCommand = ServerCommand.createCommand(userInput);
-            serverOn = serverCommand.execute();
-        }
+        try {
+            while (serverOn) {
+                String userInput = checkInput();
+                ServerCommand serverCommand = ServerCommand.createCommand(userInput);
+                serverOn = serverCommand.execute();
+            }
 
-        //TODO:Client will handle shutdown message
-        if (!isTest) {
-            System.exit(0);
+            //TODO:Client will handle shutdown message
+            if (!isTest) {
+                System.exit(0);
+            }
+        } catch (NoSuchElementException | IllegalStateException e) {
+            System.err.println("No line found or scanner is closed. Server commands will not be able to be run");
         }
     }
 
-    private String checkInput() {
+    private String checkInput() throws NoSuchElementException, IllegalStateException {
         String userInput;
 
         while ("".equals(userInput = new CommandValidator(scanner.nextLine()).validate())) {

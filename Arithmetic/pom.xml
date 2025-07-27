@@ -34,6 +34,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0</version>
+                <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${project.build.outputDirectory}</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
                 <executions>
                     <!-- Run tests during the integration-test phase -->
                     <execution>
@@ -70,7 +75,11 @@
                             <executable>sh</executable>
                             <arguments>
                                 <argument>-c</argument>
-                                <argument>java -jar ${project.build.directory}/${project.build.finalName}.jar &amp; echo $! > ${project.build.directory}/server.pid</argument>
+                                <argument>
+                                    java -jar ${project.build.directory}/${project.build.finalName}.jar \
+                                    &gt; ${project.build.directory}/server.log 2&gt;&amp;1 &amp; \
+                                    echo $! &gt; ${project.build.directory}/server.pid
+                                </argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -86,6 +95,20 @@
                             <arguments>
                                 <argument>-c</argument>
                                 <argument>kill $(cat ${project.build.directory}/server.pid) || true</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!-- Print logs -->
+                    <execution>
+                        <id>print-server-log</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>cat</executable>
+                            <arguments>
+                                <argument>${project.build.directory}/server.log</argument>
                             </arguments>
                         </configuration>
                     </execution>
