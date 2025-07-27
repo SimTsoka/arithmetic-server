@@ -34,11 +34,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0</version>
-                <configuration>
-                    <additionalClasspathElements>
-                        <additionalClasspathElement>${project.build.outputDirectory}</additionalClasspathElement>
-                    </additionalClasspathElements>
-                </configuration>
                 <executions>
                     <!-- Run tests during the integration-test phase -->
                     <execution>
@@ -76,7 +71,7 @@
                             <arguments>
                                 <argument>-c</argument>
                                 <argument>
-                                    java -jar ${project.build.directory}/${project.build.finalName}.jar \
+                                    java -jar ${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar \
                                     &gt; ${project.build.directory}/server.log 2&gt;&amp;1 &amp; \
                                     echo $! &gt; ${project.build.directory}/server.pid
                                 </argument>
