@@ -3,8 +3,6 @@ package AcceptanceTests.SupportingCode;
 import Client.TestClient;
 import org.json.JSONObject;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class TestLaunchingMultipleClientSupport {
     private TestClient client;
 

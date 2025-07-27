@@ -109,8 +109,9 @@ public class ClientHandler implements Runnable{
     public void shutdown() {
         try {
             PlayerDatabase.removePlayer(player);
+            Printer.printMsg(player.getName() + " removed from the database.");
         } catch (NullPointerException e) {
-            System.out.println("Player doesn't exist, ");
+            System.out.println("Player doesn't exist in database");
         }
 
         try {
