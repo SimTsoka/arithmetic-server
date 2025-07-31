@@ -115,7 +115,6 @@ public class ClientHandler implements Runnable{
         }
 
         try {
-
             out.close();
             in.close();
             socket.close();
