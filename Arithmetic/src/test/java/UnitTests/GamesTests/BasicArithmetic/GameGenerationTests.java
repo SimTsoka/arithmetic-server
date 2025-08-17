@@ -35,6 +35,9 @@ public class GameGenerationTests {
     }
 
     boolean isAnswerCorrect(String[] question, Integer answer) {
-//        Integer.parseInt(question)
+        int firstValue = Integer.parseInt(question[0]);
+        int secondValue = Integer.parseInt(question[2]);
+        //TODO: validate answer
+        return false;
     }
 }
